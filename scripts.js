@@ -234,7 +234,7 @@ showCoinAnimation(totalCoins);
 showNotification(`🎮 Memainkan ${game.name}\n🪙 +${totalCoins} Koin (${game.coinReward} + ${bonus} bonus)\n⚡ +${totalXP} XP`, "#ffd700");  
   
 renderGames();  
-window.open('https://poki.com', '_blank');
+window.open('https://www.crazygames.com/id/game/bloxdhop-io', '_blank');
 
 }
 
