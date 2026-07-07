@@ -14,22 +14,15 @@ let currentFilter = 'all';
 // DATA GAME
 // ========================================
 const gameDataBase = [
-{ id: 1, name: "Cyber Strike", genre: "action", desc: "FPS Futuristik", coinReward: 10, xpReward: 5 },
-{ id: 2, name: "Dragon Quest", genre: "adventure", desc: "RPG Epic", coinReward: 15, xpReward: 8 },
-{ id: 3, name: "Speed Racer", genre: "sport", desc: "Balapan Liar", coinReward: 8, xpReward: 4 },
-{ id: 4, name: "Kingdom Wars", genre: "strategy", desc: "Strategi Perang", coinReward: 12, xpReward: 6 },
-{ id: 5, name: "Neon Blast", genre: "action", desc: "Shooter Arcade", coinReward: 10, xpReward: 5 },
-{ id: 6, name: "Mystic Forest", genre: "adventure", desc: "Petualangan Magis", coinReward: 15, xpReward: 8 },
-{ id: 7, name: "Football Stars", genre: "sport", desc: "Sepak Bola Online", coinReward: 8, xpReward: 4 },
-{ id: 8, name: "Chess Master", genre: "strategy", desc: "Catur Pro", coinReward: 12, xpReward: 6 },
-{ id: 9, name: "Galaxy Invaders", genre: "action", desc: "Space Shooter", coinReward: 10, xpReward: 5 },
-{ id: 10, name: "Pirate Treasure", genre: "adventure", desc: "Bajak Laut", coinReward: 15, xpReward: 8 },
-{ id: 11, name: "Tennis Pro", genre: "sport", desc: "Tenis Virtual", coinReward: 8, xpReward: 4 },
-{ id: 12, name: "Tower Defense", genre: "strategy", desc: "Pertahanan Menara", coinReward: 12, xpReward: 6 },
-{ id: 13, name: "Shadow Blade", genre: "action", desc: "Ninja Action", coinReward: 10, xpReward: 5 },
-{ id: 14, name: "Magic Kingdom", genre: "adventure", desc: "Kerajaan Sihir", coinReward: 15, xpReward: 8 },
-{ id: 15, name: "Bike Stunt", genre: "sport", desc: "Sepeda Ekstrim", coinReward: 8, xpReward: 4 },
-{ id: 16, name: "Robot Wars", genre: "strategy", desc: "Pertarungan Robot", coinReward: 12, xpReward: 6 }
+{ 
+ id: 1, 
+ name: "Cyber Strike", 
+ genre: "action", 
+ desc: "FPS Futuristik", 
+ coinReward: 30, 
+ xpReward: 5,
+ link: "https://poki.com"
+},
 ];
 
 // ========================================
@@ -234,8 +227,7 @@ showCoinAnimation(totalCoins);
 showNotification(`🎮 Memainkan ${game.name}\n🪙 +${totalCoins} Koin (${game.coinReward} + ${bonus} bonus)\n⚡ +${totalXP} XP`, "#ffd700");  
   
 renderGames();  
-window.open('https://www.crazygames.com/id/game/bloxdhop-io', '_blank');
-
+window.open(game.link, '_blank');
 }
 
 // ========================================
