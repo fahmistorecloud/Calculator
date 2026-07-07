@@ -19,7 +19,7 @@ const gameDataBase = [
  name: "Cyber Strike", 
  genre: "action", 
  desc: "FPS Futuristik", 
- coinReward: 30, 
+ coinReward: 1, 
  xpReward: 5,
  link: "https://poki.com"
 },
