@@ -1,154 +1,4 @@
-// ========================================
-// VARIABEL GLOBAL
-// ========================================
-let modeDaftar = false;
-let userAktifSesi = "";
-let favoriteGames = [];
-let playedGames = [];
-let userCoins = 0;
-let userXP = 0;
-let userLevel = 1;
-let currentFilter = 'all';
-
-// ========================================
-// DATA GAME
-// ========================================
-const gameDataBase = [
-{ 
- id: 1, 
- name: "Cyber Strike", 
- genre: "action", 
- desc: "FPS Futuristik", 
- coinReward: 1, 
- xpReward: 5,
- link: "https://poki.com"
-},
-];
-
-// ========================================
-// INISIALISASI AKUN DEMO
-// ========================================
-if (!localStorage.getItem('admin')) {
-localStorage.setItem('admin', 'game123');
-}
-
-// ========================================
-// FUNGSI LOGIN & REGISTER
-// ========================================
-function pindahMenu() {
-modeDaftar = !modeDaftar;
-document.getElementById('errMsg').style.display = 'none';
-if (modeDaftar) {
-document.getElementById('title').innerText = "BUAT AKUN";
-document.getElementById('mainBtn').innerText = "DAFTAR SEKARANG";
-document.getElementById('toggleBtn').innerText = "Sudah punya akun? Login";
-} else {
-document.getElementById('title').innerText = "PLAYER LOGIN";
-document.getElementById('mainBtn').innerText = "MASUK";
-document.getElementById('toggleBtn').innerText = "Belum punya akun? Daftar";
-}
-}
-
-function aksiUtama() {
-const u = document.getElementById('user').value.trim();
-const p = document.getElementById('pass').value;
-const err = document.getElementById('errMsg');
-
-if (!u || !p) {  
-    err.innerText = "Isi semua kotak!";  
-    err.style.display = 'block';  
-    return;  
-}  
-
-if (modeDaftar) {  
-    if (localStorage.getItem(u)) {  
-        err.innerText = "Username sudah terdaftar!";  
-        err.style.display = 'block';  
-    } else {  
-        localStorage.setItem(u, p);  
-        localStorage.setItem('coins_' + u, '0');  
-        localStorage.setItem('favorites_' + u, '[]');  
-        localStorage.setItem('played_' + u, '[]');  
-        localStorage.setItem('inventory_' + u, '[]');  
-        localStorage.setItem('xp_' + u, '0');  
-        localStorage.setItem('level_' + u, '1');  
-        showNotification("✅ Akun berhasil dibuat! Silakan login.", "#00f0ff");  
-        pindahMenu();  
-    }  
-} else {  
-    if (localStorage.getItem(u) === p) {  
-        userAktifSesi = u;  
-        document.getElementById('authBox').style.display = 'none';  
-        document.getElementById('dashBox').style.display = 'block';  
-        loadUserData();  
-        showNotification("👋 Selamat datang, " + u + "!", "#00f0ff");  
-    } else {  
-        err.innerText = "Username atau Password salah!";  
-        err.style.display = 'block';  
-    }  
-}
-
-}
-
-// ========================================
-// FUNGSI LOAD DATA USER
-// ========================================
-function loadUserData() {
-favoriteGames = JSON.parse(localStorage.getItem('favorites_' + userAktifSesi) || '[]');
-playedGames = JSON.parse(localStorage.getItem('played_' + userAktifSesi) || '[]');
-userCoins = parseInt(localStorage.getItem('coins_' + userAktifSesi)) || 0;
-userXP = parseInt(localStorage.getItem('xp_' + userAktifSesi)) || 0;
-userLevel = parseInt(localStorage.getItem('level_' + userAktifSesi)) || 1;
-
-updateCoinDisplay();  
-updateLevelDisplay();  
-document.getElementById('favoriteCount').textContent = favoriteGames.length;  
-document.getElementById('playedGames').textContent = playedGames.length;  
-renderGames();
-
-}
-
-// ========================================
-// FUNGSI UPDATE KOIN & LEVEL
-// ========================================
-function updateCoinDisplay() {
-document.getElementById('coinDisplay').textContent = userCoins;
-document.getElementById('coinStat').textContent = userCoins;
-}
-
-function updateLevelDisplay() {
-const xpNeeded = userLevel * 50;
-const xpProgress = Math.min((userXP / xpNeeded) * 100, 100);
-
-const levelNames = ['Beginner', 'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Grandmaster', 'Legend'];  
-const levelIndex = Math.min(Math.floor(userLevel / 3), levelNames.length - 1);  
-const levelName = levelNames[levelIndex] || 'Legend';  
-  
-document.getElementById('levelDisplay').textContent = levelName + ' (Lv.' + userLevel + ')';  
-document.getElementById('xpDisplay').textContent = userXP + ' / ' + xpNeeded + ' XP';  
-document.getElementById('xpProgress').style.width = xpProgress + '%';
-
-}
-
-function addXP(amount) {
-userXP += amount;
-const xpNeeded = userLevel * 50;
-
-while (userXP >= xpNeeded) {  
-    userXP -= xpNeeded;  
-    userLevel++;  
-    showNotification('🎉 LEVEL UP! Sekarang Level ' + userLevel + '!', '#ffd700');  
-}  
-  
-localStorage.setItem('xp_' + userAktifSesi, userXP);  
-localStorage.setItem('level_' + userAktifSesi, userLevel);  
-updateLevelDisplay();
-
-}
-
-// ========================================
-// FUNGSI RENDER GAME
-// ========================================
+========================
 function renderGames() {
 const grid = document.getElementById('gameGrid');
 const searchTerm = document.getElementById('searchGame').value.toLowerCase();
@@ -560,3 +410,161 @@ setInterval(() => {
     }
 
 }, 5000);
+// ========================================
+// VARIABEL GLOBAL
+// ========================================
+let modeDaftar = false;
+let userAktifSesi = "";
+let favoriteGames = [];
+let playedGames = [];
+let userCoins = 0;
+let userXP = 0;
+let userLevel = 1;
+let currentFilter = 'all';
+
+// ========================================
+// DATA GAME
+// ========================================
+const gameDataBase = [
+    { id: 1, name: "Cyber Strike", genre: "action", desc: "FPS Futuristik", coinReward: 1, xpReward: 5, link: "https://poki.com" },
+    { id: 2, name: "Valorant", genre: "action", desc: "FPS Tactical", coinReward: 2, xpReward: 8, link: "https://poki.com" },
+    { id: 3, name: "Genshin Impact", genre: "adventure", desc: "Open World RPG", coinReward: 3, xpReward: 10, link: "https://poki.com" },
+    { id: 4, name: "Mobile Legends", genre: "action", desc: "MOBA 5v5", coinReward: 2, xpReward: 7, link: "https://poki.com" },
+    { id: 5, name: "PUBG Mobile", genre: "action", desc: "Battle Royale", coinReward: 2, xpReward: 8, link: "https://poki.com" },
+    { id: 6, name: "Minecraft", genre: "adventure", desc: "Sandbox Survival", coinReward: 3, xpReward: 10, link: "https://poki.com" },
+    { id: 7, name: "FIFA 24", genre: "sport", desc: "Football Simulator", coinReward: 2, xpReward: 6, link: "https://poki.com" },
+    { id: 8, name: "Clash of Clans", genre: "strategy", desc: "Base Building", coinReward: 2, xpReward: 7, link: "https://poki.com" },
+    { id: 9, name: "Call of Duty", genre: "action", desc: "FPS Military", coinReward: 2, xpReward: 8, link: "https://poki.com" },
+    { id: 10, name: "Among Us", genre: "strategy", desc: "Social Deduction", coinReward: 1, xpReward: 5, link: "https://poki.com" },
+    { id: 11, name: "NBA 2K24", genre: "sport", desc: "Basketball Sim", coinReward: 2, xpReward: 6, link: "https://poki.com" },
+    { id: 12, name: "The Witcher 3", genre: "adventure", desc: "Fantasy RPG", coinReward: 3, xpReward: 12, link: "https://poki.com" },
+    { id: 13, name: "Dota 2", genre: "strategy", desc: "MOBA Complex", coinReward: 2, xpReward: 9, link: "https://poki.com" },
+    { id: 14, name: "CS:GO", genre: "action", desc: "FPS Classic", coinReward: 2, xpReward: 7, link: "https://poki.com" },
+    { id: 15, name: "Rocket League", genre: "sport", desc: "Car Football", coinReward: 2, xpReward: 6, link: "https://poki.com" },
+    { id: 16, name: "Age of Empires", genre: "strategy", desc: "Historical RTS", coinReward: 3, xpReward: 10, link: "https://poki.com" }
+];
+
+// ========================================
+// INISIALISASI AKUN DEMO
+// ========================================
+if (!localStorage.getItem('admin')) {
+    localStorage.setItem('admin', 'game123');
+}
+
+// ========================================
+// FUNGSI LOADING SCREEN
+// ========================================
+function startLoading() {
+    const fill = document.getElementById('loadingFill');
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 2;
+        fill.style.width = progress + '%';
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 300);
+        }
+    }, 30);
+}
+
+// ========================================
+// FUNGSI LOGIN & REGISTER
+// ========================================
+function pindahMenu() {
+    modeDaftar = !modeDaftar;
+    document.getElementById('errMsg').style.display = 'none';
+    if (modeDaftar) {
+        document.getElementById('title').innerText = "BUAT AKUN";
+        document.getElementById('mainBtn').innerText = "DAFTAR SEKARANG";
+        document.getElementById('toggleBtn').innerText = "Sudah punya akun? Login";
+    } else {
+        document.getElementById('title').innerText = "PLAYER LOGIN";
+        document.getElementById('mainBtn').innerText = "MASUK";
+        document.getElementById('toggleBtn').innerText = "Belum punya akun? Daftar";
+    }
+}
+
+function aksiUtama() {
+    const u = document.getElementById('user').value.trim();
+    const p = document.getElementById('pass').value;
+    const err = document.getElementById('errMsg');
+
+    if (!u || !p) {
+        err.innerText = "Isi semua kotak!";
+        err.style.display = 'block';
+        return;
+    }
+
+    if (modeDaftar) {
+        if (localStorage.getItem(u)) {
+            err.innerText = "Username sudah terdaftar!";
+            err.style.display = 'block';
+        } else {
+            localStorage.setItem(u, p);
+            localStorage.setItem('coins_' + u, '0');
+            localStorage.setItem('favorites_' + u, '[]');
+            localStorage.setItem('played_' + u, '[]');
+            localStorage.setItem('inventory_' + u, '[]');
+            localStorage.setItem('xp_' + u, '0');
+            localStorage.setItem('level_' + u, '1');
+            showNotification("✅ Akun berhasil dibuat! Silakan login.", "#00f0ff");
+            pindahMenu();
+        }
+    } else {
+        if (localStorage.getItem(u) === p) {
+            userAktifSesi = u;
+            document.getElementById('authBox').classList.add('hidden');
+            document.getElementById('dashBox').classList.add('active');
+            loadUserData();
+            showNotification("👋 Selamat datang, " + u + "!", "#00f0ff");
+        } else {
+            err.innerText = "Username atau Password salah!";
+            err.style.display = 'block';
+        }
+    }
+}
+
+function logout() {
+    userAktifSesi = "";
+    document.getElementById('authBox').classList.remove('hidden');
+    document.getElementById('dashBox').classList.remove('active');
+    showNotification("👋 Logout berhasil!", "#ff3b30");
+}
+
+// ========================================
+// FUNGSI LOAD DATA USER
+// ========================================
+function loadUserData() {
+    favoriteGames = JSON.parse(localStorage.getItem('favorites_' + userAktifSesi) || '[]');
+    playedGames = JSON.parse(localStorage.getItem('played_' + userAktifSesi) || '[]');
+    userCoins = parseInt(localStorage.getItem('coins_' + userAktifSesi)) || 0;
+    userXP = parseInt(localStorage.getItem('xp_' + userAktifSesi)) || 0;
+    userLevel = parseInt(localStorage.getItem('level_' + userAktifSesi)) || 1;
+
+    updateCoinDisplay();
+    updateLevelDisplay();
+    document.getElementById('favoriteCount').textContent = favoriteGames.length;
+    document.getElementById('playedGames').textContent = playedGames.length;
+    renderGames();
+}
+
+// ========================================
+// FUNGSI UPDATE KOIN & LEVEL
+// ========================================
+function updateCoinDisplay() {
+    document.getElementById('coinDisplay').textContent = userCoins;
+    document.getElementById('coinStat').textContent = userCoins;
+}
+
+function updateLevelDisplay() {
+    const xpNeeded = userLevel * 50;
+    const xpProgress = Math.min((userXP / xpNeeded) * 100, 100);
+
+    const levelNames = ['Beginner', 'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Grandmaster', 'Legend'];
+    const levelIndex = Math.min(Math.floor(userLevel / 3), levelNames.length - 1);
+    const levelName = levelNames[levelIndex] || 'Legend';
+
+    document.getElementById('levelDisplay').textContent = levelName + ' (Lv.' + userLevel + ')';
+    document.getElementById('xpDisplay').textContent = userXP + '
