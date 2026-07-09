@@ -4,162 +4,177 @@
     <meta charset="UTF-8" />      
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />      
     <title>Gaming Portal</title>      
-    <link rel="preconnect" href="https://googleapis.com" />      
-    <link rel="preconnect" href="https://gstatic.com" crossorigin />      
-    <link href="https://googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet" />      
-    <link rel="stylesheet" href="style.css" />      
+    <link rel="preconnect" href="https://fonts.googleapis.com" />      
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />      
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet" />      
+    <link rel="stylesheet" href="style.css" />
 </head>      
 <body> 
     <!-- INTRO SCREEN -->
-<div id="introScreen">
-    <div class="intro-content">
-        <h1>🎮 GAMING PORTAL</h1>
-        <p>Loading System...</p
-        <div class="intro-bar">
-            <div class="intro-fill" id="introFill"></div>
+    <div id="introScreen">
+        <div class="intro-content">
+            <h1>🎮 GAMING PORTAL</h1>
+            <p>Loading System...</p>
+            <div class="intro-bar">
+                <div class="intro-fill" id="introFill"></div>
+            </div>
         </div>
     </div>
-<div class="notification" id="notification"></div>
-<!-- Sidebar Menu -->
-<div class="sidebar" id="sidebarMenu">
-<!-- Overlay & Notifikasi -->      
-    <!-- Sidebar Menu -->    <div class="sidebar" id="sidebarMenu">      
-    <div class="sidebar-header">      
-        <h3 style="font-family:'Orbitron'; color:#00f0ff; font-size:18px;">NAVIGATION</h3>      
-        <button class="sidebar-close" onclick="aksiMenuTitik()">×</button>      
-    </div>      
-    <ul class="menu-list">      
-        <li class="menu-item"><a href="#" onclick="aksiMenuTitik()">🎮 Home Portal</a></li>      
-        <li class="menu-item"><a href="#" onclick="bukaProfilPlayer()">👤 Player Profile</a></li>      
-        <li class="menu-item"><a href="#" onclick="bukaSettings()">⚙️ Settings</a></li>      
-        <li class="menu-item"><a href="#" onclick="bukaFavorite()">⭐ Favorite Games</a></li>      
-        <li class="menu-item"><a href="#" onclick="bukaShop()">🛒 Shop</a></li>      
-        <li class="menu-item"><a href="#" onclick="bukaInventory()">📦 Inventory</a></li>      
-        <li class="menu-item"><a href="#" onclick="showNotification('💬 Live support siap membantu!', '#bc34fa'); aksiMenuTitik();">💬 Live Support</a></li>      
-      <li class="menu-item"><a href="#" onclick="showNotification('admin panel', '#bc34fa'); aksiMenuTitik();">💬 Live Support</a></li
-    </ul>      
-</div>    <!-- Halaman Login -->    <div class="box" id="authBox">      
-    <h2 id="title">PLAYER LOGIN</h2>      
-    <div class="error" id="errMsg">Username atau Password salah!</div>      
-    <input type="text" id="user" placeholder="Masukkan Username">      
-    <input type="password" id="pass" placeholder="Masukkan Password">      
-    <button id="mainBtn" onclick="aksiUtama()">MASUK</button>      
-    <button style="border-color:#00f0ff; font-size:14px;" id="toggleBtn" onclick="pindahMenu()">Belum punya akun? Daftar</button>      
-</div>    <!-- Dashboard -->    <div class="dash" id="dashBox">      
-    <!-- Navbar -->      
-    <div class="nav">      
-        <div class="nav-left">      
-            <button class="dot-menu" onclick="aksiMenuTitik()" title="Open Menu">      
-                <span></span>      
-                <span></span>      
-                <span></span>      
-            </button>      
-            <h2 style="font-size:20px; margin-bottom:0;">GAMING PORTAL</h2>      
-        </div>      
-        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">      
-            <span style="font-size:14px; color:#ffd700;">🪙 <span id="coinDisplay">0</span></span>      
-            <span id="onlineUsers" style="font-size:14px; color:#00f0ff;">👤 128 Online</span>      
-            <button onclick="window.location.reload()" style="width:auto; padding:5px 15px; margin:0; border-color:#ff3b30; color:#ff3b30;">LOGOUT</button>      
-        </div>      
-    </div>    <!-- Statistik -->      
-<div class="stats">      
-    <div class="stat-card">      
-        <div class="number" id="totalGames">16</div>      
-        <div style="color:#8e8e93;">Total Games</div>      
-    </div>      
-    <div class="stat-card">      
-        <div class="number" id="playedGames">0</div>      
-        <div style="color:#8e8e93;">Dimainkan</div>      
-    </div>      
-    <div class="stat-card">      
-        <div class="number" id="favoriteCount">0</div>      
-        <div style="color:#8e8e93;">⭐ Favorit</div>      
-    </div>      
-    <div class="stat-card" style="border-color:#ffd700;">      
-        <div class="number coin-icon" id="coinStat">0</div>      
-        <div style="color:#ffd700;">🪙 Koin</div>      
-    </div>      
-</div>      <!-- Level Progress -->      <div class="level-progress">      
-    <div style="display:flex; justify-content:space-between;">      
-        <span style="font-weight:bold;">🏆 Level: <span id="levelDisplay">Beginner</span></span>      
-        <span id="xpDisplay">0 / 50 XP</span>      
-    </div>      
-    <div class="progress-bar">      
-        <div class="fill" id="xpProgress" style="width:0%"></div>      
-    </div>      
-</div>      <!-- Event -->      <div class="ev-box">      
-    <h3 style="color:#fff; font-family:'Orbitron';">⚡ EVENT MINGGUAN: TURNAMEN BERHADIAH Rp5.000.000!</h3>      
-    <p style="color:#8e8e93; margin-top:5px;">Mainkan game gratis di bawah, kumpulkan skor tertinggi minggu ini!</p>      
-    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">      
-        <span style="background:#00f0ff; color:#000; padding:2px 10px; border-radius:4px; font-weight:bold;">🔥 3 Hari Lagi</span>      
-        <span style="background:#bc34fa; color:#fff; padding:2px 10px; border-radius:4px; font-weight:bold;">🏆 128 Peserta</span>      
-        <span style="background:#ffd700; color:#000; padding:2px 10px; border-radius:4px; font-weight:bold;">🪙 +50 Koin per game</span>      
-    </div>      
-</div>      <!-- Shop -->      <div class="shop-section">      
-    <h3 style="font-family:'Orbitron'; color:#ffd700;">🛒 TOKO KOIN</h3>      
-    <div class="shop-items" id="shopItems">      
-        <div class="shop-item">      
-            <div>🎨 Skin Premium</div>      
-            <div class="price">🪙 100 Koin</div>      
-            <button class="btn-buy" onclick="buyItem('Skin Premium', 100)">Beli</button>      
-        </div>      
-        <div class="shop-item">      
-            <div>🚀 Boost XP</div>      
-            <div class="price">🪙 50 Koin</div>      
-            <button class="btn-buy" onclick="buyItem('Boost XP', 50)">Beli</button>      
-        </div>      
-        <div class="shop-item">      
-            <div>🏆 Badge Pro</div>      
-            <div class="price">🪙 200 Koin</div>      
-            <button class="btn-buy" onclick="buyItem('Badge Pro', 200)">Beli</button>      
-        </div>      
-        <div class="shop-item">      
-            <div>💎 Diamond Pack</div>      
-            <div class="price">🪙 500 Koin</div>      
-            <button class="btn-buy" onclick="buyItem('Diamond Pack', 500)">Beli</button>      
-        </div>      
-    </div>      
-</div>      <!-- Filter & Search -->      <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center; margin-bottom:15px;">      
-    <h3 style="font-family:'Orbitron'; color:#00f0ff; font-size:18px;">🎮 DAFTAR GAME</h3>      
-    <div class="filter-tags" id="filterTags">      
-        <button class="filter-tag active" data-filter="all" onclick="filterGames('all', this)">Semua</button>      
-        <button class="filter-tag" data-filter="action" onclick="filterGames('action', this)">Action</button>      
-        <button class="filter-tag" data-filter="adventure" onclick="filterGames('adventure', this)">Adventure</button>      
-        <button class="filter-tag" data-filter="sport" onclick="filterGames('sport', this)">Sport</button>      
-        <button class="filter-tag" data-filter="strategy" onclick="filterGames('strategy', this)">Strategy</button>      
-    </div>      
-</div>      <div class="search-bar">      
-    <span class="search-icon">🔍</span>      
-    <input type="text" id="searchGame" placeholder="Cari game..." oninput="searchGames()">      
-</div>      <!-- Game Grid -->      <div class="grid" id="gameGrid"></div>  </div>  
+
+    <!-- NOTIFICATION -->
+    <div class="notification" id="notification"></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebarMenu">
+        <div class="sidebar-header">
+            <h3 style="font-family:'Orbitron'; color:#00f0ff; font-size:18px;">NAVIGATION</h3>
+            <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+        </div>
+        <ul class="menu-list">
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('🏠 Kembali ke Home', '#00f0ff')">🎮 Home Portal</a></li>
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('👤 Profil Player', '#bc34fa')">👤 Player Profile</a></li>
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('⚙️ Settings', '#8e8e93')">⚙️ Settings</a></li>
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('⭐ Favorite Games', '#ffd700')">⭐ Favorite Games</a></li>
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('🛒 Shop', '#ffd700')">🛒 Shop</a></li>
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('📦 Inventory', '#00f0ff')">📦 Inventory</a></li>
+            <li class="menu-item"><a href="#" onclick="toggleSidebar(); showNotification('💬 Live support siap membantu!', '#bc34fa')">💬 Live Support</a></li>
+        </ul>
+    </div>
+
+    <!-- LOGIN BOX -->
+    <div class="box" id="authBox">
+        <h2 id="title">PLAYER LOGIN</h2>
+        <div class="error" id="errMsg">Username atau Password salah!</div>
+        <input type="text" id="user" placeholder="Masukkan Username">
+        <input type="password" id="pass" placeholder="Masukkan Password">
+        <button id="mainBtn" onclick="handleAuth()">MASUK</button>
+        <button style="border-color:#00f0ff; font-size:14px;" id="toggleBtn" onclick="toggleAuthMode()">Belum punya akun? Daftar</button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dash" id="dashBox">      
+        <!-- Navbar -->      
+        <div class="nav">      
+            <div class="nav-left">      
+                <button class="dot-menu" onclick="toggleSidebar()" title="Open Menu">      
+                    <span></span>      
+                    <span></span>      
+                    <span></span>      
+                </button>      
+                <h2 style="font-size:20px; margin-bottom:0;">GAMING PORTAL</h2>      
+            </div>      
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">      
+                <span style="font-size:14px; color:#ffd700;">🪙 <span id="coinDisplay">0</span></span>      
+                <span id="onlineUsers" style="font-size:14px; color:#00f0ff;">👤 128 Online</span>      
+                <button onclick="logout()" style="width:auto; padding:5px 15px; margin:0; border-color:#ff3b30; color:#ff3b30;">LOGOUT</button>      
+            </div>      
+        </div>
+
+        <!-- Statistik -->      
+        <div class="stats">      
+            <div class="stat-card">      
+                <div class="number" id="totalGames">16</div>      
+                <div style="color:#8e8e93;">Total Games</div>      
+            </div>      
+            <div class="stat-card">      
+                <div class="number" id="playedGames">0</div>      
+                <div style="color:#8e8e93;">Dimainkan</div>      
+            </div>      
+            <div class="stat-card">      
+                <div class="number" id="favoriteCount">0</div>      
+                <div style="color:#8e8e93;">⭐ Favorit</div>      
+            </div>      
+            <div class="stat-card" style="border-color:#ffd700;">      
+                <div class="number coin-icon" id="coinStat">0</div>      
+                <div style="color:#ffd700;">🪙 Koin</div>      
+            </div>      
+        </div>
+
+        <!-- Level Progress -->      
+        <div class="level-progress">      
+            <div style="display:flex; justify-content:space-between;">      
+                <span style="font-weight:bold;">🏆 Level: <span id="levelDisplay">Beginner</span></span>      
+                <span id="xpDisplay">0 / 50 XP</span>      
+            </div>      
+            <div class="progress-bar">      
+                <div class="fill" id="xpProgress" style="width:0%"></div>      
+            </div>      
+        </div>
+
+        <!-- Event -->      
+        <div class="ev-box">      
+            <h3 style="color:#fff; font-family:'Orbitron';">⚡ EVENT MINGGUAN: TURNAMEN BERHADIAH Rp5.000.000!</h3>      
+            <p style="color:#8e8e93; margin-top:5px;">Mainkan game gratis di bawah, kumpulkan skor tertinggi minggu ini!</p>      
+            <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">      
+                <span style="background:#00f0ff; color:#000; padding:2px 10px; border-radius:4px; font-weight:bold;">🔥 3 Hari Lagi</span>      
+                <span style="background:#bc34fa; color:#fff; padding:2px 10px; border-radius:4px; font-weight:bold;">🏆 128 Peserta</span>      
+                <span style="background:#ffd700; color:#000; padding:2px 10px; border-radius:4px; font-weight:bold;">🪙 +50 Koin per game</span>      
+            </div>      
+        </div>
+
+        <!-- Shop -->      
+        <div class="shop-section">      
+            <h3 style="font-family:'Orbitron'; color:#ffd700;">🛒 TOKO KOIN</h3>      
+            <div class="shop-items" id="shopItems">      
+                <div class="shop-item">      
+                    <div>🎨 Skin Premium</div>      
+                    <div class="price">🪙 100 Koin</div>      
+                    <button class="btn-buy" onclick="buyItem('Skin Premium', 100)">Beli</button>      
+                </div>      
+                <div class="shop-item">      
+                    <div>🚀 Boost XP</div>      
+                    <div class="price">🪙 50 Koin</div>      
+                    <button class="btn-buy" onclick="buyItem('Boost XP', 50)">Beli</button>      
+                </div>      
+                <div class="shop-item">      
+                    <div>🏆 Badge Pro</div>      
+                    <div class="price">🪙 200 Koin</div>      
+                    <button class="btn-buy" onclick="buyItem('Badge Pro', 200)">Beli</button>      
+                </div>      
+                <div class="shop-item">      
+                    <div>💎 Diamond Pack</div>      
+                    <div class="price">🪙 500 Koin</div>      
+                    <button class="btn-buy" onclick="buyItem('Diamond Pack', 500)">Beli</button>      
+                </div>      
+            </div>      
+        </div>
+
+        <!-- Filter & Search -->      
+        <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center; margin-bottom:15px;">      
+            <h3 style="font-family:'Orbitron'; color:#00f0ff; font-size:18px;">🎮 DAFTAR GAME</h3>      
+            <div class="filter-tags" id="filterTags">      
+                <button class="filter-tag active" data-filter="all" onclick="filterGames('all', this)">Semua</button>      
+                <button class="filter-tag" data-filter="action" onclick="filterGames('action', this)">Action</button>      
+                <button class="filter-tag" data-filter="adventure" onclick="filterGames('adventure', this)">Adventure</button>      
+                <button class="filter-tag" data-filter="sport" onclick="filterGames('sport', this)">Sport</button>      
+                <button class="filter-tag" data-filter="strategy" onclick="filterGames('strategy', this)">Strategy</button>      
+            </div>      
+        </div>
+
+        <div class="search-bar">      
+            <span class="search-icon">🔍</span>      
+            <input type="text" id="searchGame" placeholder="Cari game..." oninput="searchGames()">      
+        </div>
+
+        <!-- Game Grid -->      
+        <div class="grid" id="gameGrid"></div>
+    </div>
+
     <!-- Tawk.to Live Chat -->
-<script type="text/javascript">
-var Tawk_API = Tawk_API || {};
-var Tawk_LoadStart = new Date();
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {};
+        var Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a4cb8da539b7e1d4b7d4ff7/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
 
-(function(){
-
-var s1 = document.createElement("script"),
-s0 = document.getElementsByTagName("script")[0];
-
-s1.async = true;
-
-s1.src = 'https://embed.tawk.to/6a4cb8da539b7e1d4b7d4ff7/default'; s1.charset='UTF-8';
-
-s1.charset = 'UTF-8';
-
-s1.setAttribute('crossorigin','*');
-
-s0.parentNode.insertBefore(s1,s0);
-
-})();
-</script>
-
-
-<!-- JavaScript Gaming Portal -->
-    <script src="scripts.js">
-        
-    </script>  
-    
+    <script src="scripts.js"></script>
 </body>      
 </html>
