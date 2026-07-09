@@ -560,31 +560,3 @@ setInterval(() => {
     }
 
 }, 5000);
-// ========================================
-// INTRO SCREEN
-// ========================================
-window.onload = function () {
-
-    const intro =
-        document.getElementById(
-            "introScreen"
-        );
-
-    if (intro) {
-
-        setTimeout(() => {
-
-            intro.style.opacity = "0";
-            intro.style.transition =
-                "0.8s";
-
-            setTimeout(() => {
-                intro.style.display =
-                    "none";
-            }, 800);
-
-        }, 3000);
-
-    }
-
-};
