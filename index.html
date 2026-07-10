@@ -1,1 +1,328 @@
-            
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingPro · Dashboard Saham + Investasi Emas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ===== LOGIN PAGE ===== -->
+    <div class="auth-page" id="authPage">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>TradingPro</h1>
+                    <p>Platform Trading & Investasi Emas</p>
+                </div>
+                <div class="auth-form" id="loginForm">
+                    <h2>Login</h2>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" placeholder="masukkan email" value="admin@tradingpro.com">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="loginPassword" placeholder="masukkan password" value="admin123">
+                    </div>
+                    <button class="btn-primary btn-block" onclick="loginUser()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <p class="auth-switch">Belum punya akun? <a href="#" onclick="showRegister()">Daftar Sekarang</a></p>
+                    <div style="margin-top:20px;padding:15px;background:#f8fafc;border-radius:12px;font-size:13px;color:#6b85a3;text-align:center;">
+                        <p><strong>👑 Akun Demo:</strong></p>
+                        <p>Admin: admin@tradingpro.com / admin123</p>
+                        <p>User: user@tradingpro.com / password123</p>
+                    </div>
+                </div>
+                <div class="auth-form" id="registerForm" style="display:none;">
+                    <h2>Daftar Akun Baru</h2>
+                    <div class="form-group"><label><i class="fas fa-user"></i> Nama Lengkap</label><input type="text" id="regName" placeholder="masukkan nama lengkap"></div>
+                    <div class="form-group"><label><i class="fas fa-envelope"></i> Email</label><input type="email" id="regEmail" placeholder="masukkan email"></div>
+                    <div class="form-group"><label><i class="fas fa-phone"></i> No. HP</label><input type="text" id="regPhone" placeholder="masukkan nomor HP"></div>
+                    <div class="form-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="regPassword" placeholder="minimal 6 karakter"></div>
+                    <button class="btn-primary btn-block" onclick="registerUser()"><i class="fas fa-user-plus"></i> Daftar</button>
+                    <p class="auth-switch">Sudah punya akun? <a href="#" onclick="showLogin()">Login disini</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN DASHBOARD ===== -->
+    <div class="main-app" id="mainApp" style="display:none;">
+        <a href="https://wa.me/6281234567890" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-brand"><i class="fas fa-chart-line"></i><span>TradingPro</span></div>
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#" class="menu-item" data-page="portfolio"><i class="fas fa-wallet"></i> Portfolio</a>
+                <a href="#" class="menu-item" data-page="deposit"><i class="fas fa-arrow-up"></i> Deposit</a>
+                <a href="#" class="menu-item" data-page="withdraw"><i class="fas fa-arrow-down"></i> Withdraw</a>
+                <a href="#" class="menu-item" data-page="history"><i class="fas fa-history"></i> Riwayat</a>
+                <a href="#" class="menu-item" data-page="gold"><i class="fas fa-coins"></i> Investasi Emas</a>
+                <a href="#" class="menu-item" data-page="profile"><i class="fas fa-user"></i> Profil</a>
+                <a href="#" class="menu-item" data-page="admin" id="adminMenu" style="display:none;"><i class="fas fa-user-cog"></i> Admin Panel</a>
+                <a href="#" class="menu-item" data-page="comments"><i class="fas fa-comments"></i> Komentar</a>
+            </div>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://ui-avatars.com/api/?name=User+Trading&background=3b82f6&color=fff&size=40" alt="User" id="sidebarAvatar">
+                    <div><div class="user-name" id="displayName">User Trading</div><div class="user-role" id="displayRole">Member</div></div>
+                </div>
+                <button class="btn-logout" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="topbar">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="topbar-right">
+                    <div class="notification"><i class="fas fa-bell"></i><span class="badge" id="notifBadge">0</span></div>
+                    <div class="balance-display"><span>Saldo</span><strong id="userBalance">Rp 0</strong></div>
+                </div>
+            </div>
+
+            <div class="pages">
+                <!-- DASHBOARD -->
+                <div class="page active" id="page-dashboard">
+                    <div class="page-header">
+                        <h2><i class="fas fa-th-large"></i> Dashboard Trading</h2>
+                        <div class="market-status"><span class="status-dot online"></span> Pasar Buka</div>
+                    </div>
+                    <div class="stat-grid">
+                        <div class="stat-card"><div class="stat-icon" style="background:#dbeafe;color:#3b82f6;"><i class="fas fa-chart-simple"></i></div><div class="stat-info"><span class="stat-label">Total Portfolio</span><span class="stat-value" id="portfolioValue">Rp 0</span><span class="stat-change positive">+0%</span></div></div>
+                        <div class="stat-card"><div class="stat-icon" style="background:#d1fae5;color:#10b981;"><i class="fas fa-arrow-up"></i></div><div class="stat-info"><span class="stat-label">Total Deposit</span><span class="stat-value" id="totalDepositDisplay">Rp 0</span><span class="stat-change positive">+0%</span></div></div>
+                        <div class="stat-card"><div class="stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-arrow-down"></i></div><div class="stat-info"><span class="stat-label">Total Withdraw</span><span class="stat-value" id="totalWithdrawDisplay">Rp 0</span><span class="stat-change">-0%</span></div></div>
+                        <div class="stat-card"><div class="stat-icon" style="background:#fce4ec;color:#ef4444;"><i class="fas fa-clock"></i></div><div class="stat-info"><span class="stat-label">Total Transaksi</span><span class="stat-value" id="totalTransactions">0</span><span class="stat-change">Lihat riwayat</span></div></div>
+                    </div>
+                    <div class="row-panel">
+                        <div class="chart-container"><h3><i class="fas fa-chart-line"></i> Grafik Saham (IDX Composite)</h3><div class="chart-wrapper"><canvas id="stockChart"></canvas></div></div>
+                        <div class="activity-container"><h3><i class="fas fa-clock"></i> Aktivitas Terkini</h3><div class="activity-list" id="activityList"><div class="activity-item"><div class="activity-icon"><i class="fas fa-info-circle" style="color:#3b82f6;"></i></div><div class="activity-detail"><span class="activity-text">Selamat datang di TradingPro!</span><span class="activity-time">Sekarang</span></div></div></div></div>
+                    </div>
+                </div>
+
+                <!-- PORTFOLIO -->
+                <div class="page" id="page-portfolio">
+                    <div class="page-header"><h2><i class="fas fa-wallet"></i> Portfolio Saham</h2><button class="btn-primary btn-sm" onclick="refreshPortfolio()"><i class="fas fa-sync"></i> Refresh</button></div>
+                    <div class="portfolio-grid" id="portfolioGrid"><div class="empty-state"><i class="fas fa-box-open"></i><p>Belum ada saham di portfolio</p><p class="empty-sub">Mulai trading dengan deposit saldo terlebih dahulu</p></div></div>
+                </div>
+
+                <!-- DEPOSIT -->
+                <div class="page" id="page-deposit">
+                    <div class="page-header"><h2><i class="fas fa-arrow-up"></i> Deposit Dana</h2></div>
+                    <div class="deposit-container">
+                        <div class="deposit-card">
+                            <h3><i class="fas fa-wallet"></i> Top Up Saldo</h3>
+                            <div class="balance-info"><span>Saldo Saat Ini</span><strong id="depositCurrentBalance">Rp 0</strong></div>
+                            <div class="deposit-amounts">
+                                <button class="amount-btn" onclick="setDeposit(1000)">Rp 1.000</button>
+                                <button class="amount-btn" onclick="setDeposit(10000)">Rp 10.000</button>
+                                <button class="amount-btn" onclick="setDeposit(50000)">Rp 50.000</button>
+                                <button class="amount-btn" onclick="setDeposit(100000)">Rp 100.000</button>
+                                <button class="amount-btn" onclick="setDeposit(500000)">Rp 500.000</button>
+                                <button class="amount-btn" onclick="setDeposit(1000000)">Rp 1.000.000</button>
+                                <button class="amount-btn" onclick="setDeposit(5000000)">Rp 5.000.000</button>
+                                <button class="amount-btn" onclick="setDeposit(10000000)">Rp 10.000.000</button>
+                                <button class="amount-btn" onclick="setDeposit(50000000)">Rp 50.000.000</button>
+                                <button class="amount-btn" onclick="setDeposit(100000000)">Rp 100.000.000</button>
+                            </div>
+                            <div class="deposit-input"><label>Jumlah Deposit (Min Rp 1.000 - Max Rp 100.000.000)</label><div class="input-group"><span class="input-prefix">Rp</span><input type="number" id="depositAmount" value="10000" min="1000" max="100000000" step="1000"></div></div>
+                            <div class="deposit-methods">
+                                <button class="method-btn active" onclick="selectMethod(this, 'qris')"><i class="fas fa-qrcode"></i> QRIS</button>
+                                <button class="method-btn" onclick="selectMethod(this, 'gopay')"><i class="fas fa-mobile-alt"></i> GoPay</button>
+                                <button class="method-btn" onclick="selectMethod(this, 'ovo')"><i class="fas fa-mobile-alt"></i> OVO</button>
+                                <button class="method-btn" onclick="selectMethod(this, 'dana')"><i class="fas fa-mobile-alt"></i> DANA</button>
+                            </div>
+                            <button class="btn-primary btn-block" onclick="processDeposit()"><i class="fas fa-qrcode"></i> Bayar dengan QRIS</button>
+                            <p class="deposit-note"><i class="fas fa-info-circle"></i> Scan QR Code untuk melakukan pembayaran. Saldo akan otomatis bertambah setelah pembayaran berhasil.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QRIS POPUP -->
+                <div class="qris-modal" id="qrisModal">
+                    <div class="qris-content">
+                        <div class="qris-header"><h3><i class="fas fa-qrcode"></i> Scan QRIS untuk Bayar</h3><button class="qris-close" onclick="closeQRIS()">&times;</button></div>
+                        <div class="qris-body">
+                            <div class="qris-amount"><span>Jumlah Pembayaran</span><strong id="qrisAmount">Rp 10.000</strong></div>
+                            <div class="qris-code" id="qrisCode"><img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=TRADINGPRO-DEPOSIT-10000" alt="QRIS Code"></div>
+                            <div class="qris-status" id="qrisStatus"><div class="status-pulse"></div><span>Menunggu pembayaran...</span></div>
+                            <button class="btn-primary btn-block" onclick="simulatePayment()"><i class="fas fa-check"></i> Saya Sudah Bayar (Simulasi)</button>
+                            <p class="qris-note"><i class="fas fa-clock"></i> Setelah pembayaran, saldo akan otomatis bertambah</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WITHDRAW -->
+                <div class="page" id="page-withdraw">
+                    <div class="page-header"><h2><i class="fas fa-arrow-down"></i> Withdraw</h2></div>
+                    <div class="withdraw-container">
+                        <div class="withdraw-card">
+                            <h3>Tarik Dana</h3>
+                            <div class="balance-info"><span>Saldo Tersedia</span><strong id="withdrawBalance">Rp 0</strong></div>
+                            <div class="withdraw-input"><label>Jumlah Tarik</label><div class="input-group"><span class="input-prefix">Rp</span><input type="number" id="withdrawAmount" placeholder="Masukkan jumlah" min="10000"></div></div>
+                            <div class="withdraw-method"><label>Metode Penarikan</label><select id="withdrawMethod"><option value="bank">Bank Transfer</option><option value="gopay">GoPay</option><option value="ovo">OVO</option><option value="dana">DANA</option></select></div>
+                            <button class="btn-primary btn-block" onclick="processWithdraw()"><i class="fas fa-check"></i> Tarik Dana</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HISTORY -->
+                <div class="page" id="page-history">
+                    <div class="page-header">
+                        <h2><i class="fas fa-history"></i> Riwayat Transaksi</h2>
+                        <div class="history-filters">
+                            <select id="historyFilter" onchange="filterHistory()"><option value="all">Semua</option><option value="deposit">Deposit</option><option value="withdraw">Withdraw</option></select>
+                            <select id="statusFilter" onchange="filterHistory()"><option value="all">Semua Status</option><option value="success">Sukses</option><option value="pending">Pending</option></select>
+                            <button class="btn-primary btn-sm" onclick="exportHistory()"><i class="fas fa-download"></i> Export</button>
+                        </div>
+                    </div>
+                    <div class="history-container">
+                        <div class="history-summary">
+                            <div class="summary-card"><span>Total Deposit</span><strong id="historyTotalDeposit">Rp 0</strong></div>
+                            <div class="summary-card"><span>Total Withdraw</span><strong id="historyTotalWithdraw">Rp 0</strong></div>
+                            <div class="summary-card"><span>Total Transaksi</span><strong id="historyTotalCount">0</strong></div>
+                        </div>
+                        <div class="history-table-container">
+                            <table class="history-table">
+                                <thead><tr><th>#</th><th>Tanggal</th><th>Jenis</th><th>Jumlah</th><th>Metode</th><th>Status</th></tr></thead>
+                                <tbody id="historyTableBody"><tr><td colspan="6" style="text-align:center;color:#6b85a3;padding:30px;"><i class="fas fa-inbox" style="font-size:24px;display:block;margin-bottom:8px;"></i>Belum ada transaksi</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- INVESTASI EMAS -->
+                <div class="page" id="page-gold">
+                    <div class="page-header">
+                        <h2><i class="fas fa-coins"></i> Investasi Emas</h2>
+                        <div class="gold-balance"><span>Saldo Tersedia</span><strong id="goldBalance">Rp 0</strong></div>
+                    </div>
+                    <div class="gold-investments-section">
+                        <h3><i class="fas fa-clock"></i> Investasi Aktif</h3>
+                        <div id="goldInvestmentsContainer" class="gold-investments-grid">
+                            <div class="empty-state"><i class="fas fa-box-open"></i><p>Belum ada investasi emas</p><p class="empty-sub">Pilih paket di bawah untuk mulai investasi</p></div>
+                        </div>
+                    </div>
+                    <div class="gold-packages-section">
+                        <h3><i class="fas fa-gem"></i> Pilih Paket Investasi</h3>
+                        <p class="gold-packages-sub">Investasi emas dengan profit hingga 15% dalam 15 hari</p>
+                        <div class="gold-packages-grid">
+                            <div class="gold-package-card" onclick="investGold(1)"><div class="package-icon" style="background:#fbbf24;"><i class="fas fa-coins"></i></div><h4>Emas Mini</h4><div class="package-price">Rp 50.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(2)"><div class="package-icon" style="background:#f59e0b;"><i class="fas fa-coins"></i></div><h4>Emas Kecil</h4><div class="package-price">Rp 100.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(3)"><div class="package-icon" style="background:#d97706;"><i class="fas fa-coins"></i></div><h4>Emas Sedang</h4><div class="package-price">Rp 250.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(4)"><div class="package-icon" style="background:#b45309;"><i class="fas fa-coins"></i></div><h4>Emas Standar</h4><div class="package-price">Rp 500.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(5)"><div class="package-icon" style="background:#92400e;"><i class="fas fa-crown"></i></div><h4>Emas Premium</h4><div class="package-price">Rp 1.000.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(6)"><div class="package-icon" style="background:#78350f;"><i class="fas fa-crown"></i></div><h4>Emas Pro</h4><div class="package-price">Rp 2.500.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(7)"><div class="package-icon" style="background:#fbbf24;"><i class="fas fa-crown"></i></div><h4>Emas Platinum</h4><div class="package-price">Rp 5.000.000</div><div class="package-profit">Profit 10%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(8)"><div class="package-icon" style="background:#f59e0b;"><i class="fas fa-crown"></i></div><h4>Emas Gold</h4><div class="package-price">Rp 7.500.000</div><div class="package-profit">Profit 12%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(9)"><div class="package-icon" style="background:#d97706;"><i class="fas fa-crown"></i></div><h4>Emas Exclusive</h4><div class="package-price">Rp 10.000.000</div><div class="package-profit">Profit 12%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                            <div class="gold-package-card" onclick="investGold(10)"><div class="package-icon" style="background:#b45309;"><i class="fas fa-crown"></i></div><h4>Emas Ultimate</h4><div class="package-price">Rp 15.000.000</div><div class="package-profit">Profit 15%</div><div class="package-duration">⏱ 15 hari</div><button class="btn-primary btn-sm">Investasi</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROFILE -->
+                <div class="page" id="page-profile">
+                    <div class="page-header"><h2><i class="fas fa-user"></i> Profil Saya</h2></div>
+                    <div class="profile-container">
+                        <div class="profile-card">
+                            <div class="profile-avatar"><img src="https://ui-avatars.com/api/?name=User+Trading&background=3b82f6&color=fff&size=120" alt="Profile" id="profileAvatar"><button class="avatar-edit" onclick="changeAvatar()"><i class="fas fa-camera"></i></button></div>
+                            <div class="profile-info">
+                                <h3 id="profileName">User Trading</h3>
+                                <p><i class="fas fa-envelope"></i> <span id="profileEmail">user@tradingpro.com</span></p>
+                                <p><i class="fas fa-phone"></i> <span id="profilePhone">+62 812-3456-7890</span></p>
+                                <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                                <div class="profile-stats">
+                                    <div class="stat-item"><span>Member Sejak</span><strong id="memberSince">Jan 2025</strong></div>
+                                    <div class="stat-item"><span>Level</span><strong id="profileLevel">Premium</strong></div>
+                                    <div class="stat-item"><span>Total Transaksi</span><strong id="totalTrans">0</strong></div>
+                                </div>
+                                <button class="btn-primary" onclick="editProfile()" style="margin-top:16px;"><i class="fas fa-edit"></i> Edit Profil</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADMIN PANEL -->
+                <div class="page" id="page-admin">
+                    <div class="page-header">
+                        <h2><i class="fas fa-user-cog"></i> 👑 Admin Panel</h2>
+                        <div class="admin-actions">
+                            <button class="btn-primary btn-sm" onclick="exportData()"><i class="fas fa-download"></i> Export</button>
+                            <button class="btn-primary btn-sm" onclick="refreshAdmin()"><i class="fas fa-sync"></i> Refresh</button>
+                        </div>
+                    </div>
+                    <div class="admin-stats-grid">
+                        <div class="admin-stat-card"><div class="admin-stat-icon" style="background:#dbeafe;color:#3b82f6;"><i class="fas fa-users"></i></div><div class="admin-stat-info"><span>Total Pengguna</span><strong id="adminTotalUsers">0</strong></div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-icon" style="background:#d1fae5;color:#10b981;"><i class="fas fa-coins"></i></div><div class="admin-stat-info"><span>Total Deposit</span><strong id="adminTotalDeposit">Rp 0</strong></div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-arrow-down"></i></div><div class="admin-stat-info"><span>Total Withdraw</span><strong id="adminTotalWithdraw">Rp 0</strong></div></div>
+                        <div class="admin-stat-card"><div class="admin-stat-icon" style="background:#fce4ec;color:#ef4444;"><i class="fas fa-clock"></i></div><div class="admin-stat-info"><span>Pending</span><strong id="adminPending">0</strong></div></div>
+                    </div>
+                    <div class="admin-tabs">
+                        <button class="admin-tab active" data-tab="users"><i class="fas fa-users"></i> Pengguna</button>
+                        <button class="admin-tab" data-tab="transactions"><i class="fas fa-exchange-alt"></i> Semua Transaksi</button>
+                        <button class="admin-tab" data-tab="settings"><i class="fas fa-cog"></i> Pengaturan</button>
+                    </div>
+                    <div class="admin-tab-content active" id="tab-users">
+                        <div class="admin-table-container">
+                            <div class="table-toolbar">
+                                <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Cari pengguna..." id="userSearch" onkeyup="searchUsers()"></div>
+                                <button class="btn-primary btn-sm" onclick="addUser()"><i class="fas fa-plus"></i> Tambah Pengguna</button>
+                            </div>
+                            <table class="admin-table"><thead><tr><th>#</th><th>Nama</th><th>Email</th><th>Saldo</th><th>Role</th><th>Aksi</th></tr></thead><tbody id="userTableBody"></tbody></table>
+                        </div>
+                    </div>
+                    <div class="admin-tab-content" id="tab-transactions">
+                        <div class="admin-table-container">
+                            <div class="table-toolbar">
+                                <div class="filter-group">
+                                    <select id="adminTxFilter" onchange="filterAdminTx()"><option value="all">Semua</option><option value="deposit">Deposit</option><option value="withdraw">Withdraw</option></select>
+                                    <select id="adminStatusFilter" onchange="filterAdminTx()"><option value="all">Semua Status</option><option value="success">Sukses</option><option value="pending">Pending</option></select>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="exportAdminTx()"><i class="fas fa-file-export"></i> Export</button>
+                            </div>
+                            <table class="admin-table"><thead><tr><th>ID</th><th>Pengguna</th><th>Jenis</th><th>Jumlah</th><th>Metode</th><th>Status</th><th>Tanggal</th></tr></thead><tbody id="adminTransactionBody"></tbody></table>
+                        </div>
+                    </div>
+                    <div class="admin-tab-content" id="tab-settings">
+                        <div class="settings-grid">
+                            <div class="settings-card"><h3><i class="fas fa-globe"></i> Pengaturan</h3><div class="setting-item"><label>Min Deposit</label><input type="number" value="1000" id="minDeposit"></div><div class="setting-item"><label>Max Deposit</label><input type="number" value="100000000" id="maxDeposit"></div><button class="btn-primary" onclick="saveSettings()">Simpan</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMMENTS -->
+                <div class="page" id="page-comments">
+                    <div class="page-header"><h2><i class="fas fa-comments"></i> Komentar & Diskusi</h2><button class="btn-primary btn-sm" onclick="addComment()"><i class="fas fa-plus"></i> Tambah Komentar</button></div>
+                    <div class="comments-container">
+                        <div class="comment-list" id="commentList">
+                            <div class="comment-item">
+                                <div class="comment-avatar"><img src="https://ui-avatars.com/api/?name=Admin&background=3b82f6&color=fff&size=40" alt="Admin"></div>
+                                <div class="comment-content">
+                                    <div class="comment-header"><span class="comment-author">Admin</span><span class="comment-time">Baru saja</span></div>
+                                    <p class="comment-text">Selamat datang di TradingPro! Silakan deposit untuk mulai trading.</p>
+                                    <div class="comment-actions"><button onclick="likeComment(this)"><i class="fas fa-thumbs-up"></i> 5</button><button onclick="replyComment(this)"><i class="fas fa-reply"></i> Balas</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-input">
+                            <textarea id="newComment" placeholder="Tulis komentar Anda..."></textarea>
+                            <button class="btn-primary" onclick="submitComment()"><i class="fas fa-paper-plane"></i> Kirim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="spinner-overlay" id="spinner"><div class="spinner"></div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
