@@ -1,6 +1,6 @@
 // ======================== KONFIGURASI API ========================
 // Untuk Termux (local)
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'http://192.168.1.3:8080';
 
 // ======================== DATA STORE ========================
 let users = JSON.parse(localStorage.getItem('tradingProUsers')) || [];
