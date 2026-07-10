@@ -445,7 +445,7 @@ app.get('/api/test', (req, res) => {
 // ============================================================
 // ========== START SERVER ==========
 // ============================================================
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, '8.0.8.0', () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📊 API endpoints ready!`);
     console.log(`👑 Admin: admin@tradingpro.com / admin123`);
