@@ -1,5 +1,3 @@
-// ======================== KONFIGURASI API ========================
-const API_URL = 'https://app.buatqris.site/api';
 
 // ======================== DATA STORE ========================
 let users = JSON.parse(localStorage.getItem('tradingProUsers')) || [];
