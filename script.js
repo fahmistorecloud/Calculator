@@ -1,5 +1,5 @@
 // ======================== KONFIGURASI API ========================
-const API_URL = 'https://calculator-ten-vert-84.vercel.app/api';
+const API_URL = 'https://nayraaa.vercel.app/api';
 
 // ======================== DATA STORE ========================
 let users = JSON.parse(localStorage.getItem('tradingProUsers')) || [];
