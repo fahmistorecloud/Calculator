@@ -1,4 +1,3 @@
-
 // ======================== DATA STORE ========================
 let users = JSON.parse(localStorage.getItem('tradingProUsers')) || [];
 let transactions = JSON.parse(localStorage.getItem('tradingProTransactions')) || [];
